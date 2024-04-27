@@ -1,4 +1,4 @@
-import { cn } from "../lib/utils";
+import { cn } from "../../lib/utils";
 
 interface CardProps {
   children: React.ReactNode;
@@ -13,7 +13,7 @@ interface CardProps {
  */
 const Card: React.FC<CardProps> = ({ children, className }) => {
   return (
-    <div className={`bg-background-50 rounded-md p-4 ${cn(className)}`}>
+    <div className={`rounded-md bg-background-50 p-4 ${cn(className)}`}>
       {children}
     </div>
   );

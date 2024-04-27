@@ -1,11 +1,10 @@
-import Card from "./Card";
-import Button from "./UI/Button";
+import Card from "./UI/Card";
 import { Ticket } from "../types/Ticket";
-import { buttonVariants, stopsEnd } from "../lib/utils";
+import { stopsEnd } from "../lib/utils";
 
 // icons
-import { RussianRuble } from "lucide-react";
 import plane from "../assets/images/plane.svg";
+import BuyButton from "./BuyButton";
 
 /**
  * Components that renders ticket passed as argument
@@ -13,18 +12,10 @@ import plane from "../assets/images/plane.svg";
  */
 export const renderTickets = (ticket: Ticket) => {
   return (
-    <Card className="bg-background-50 border-accent-500 flex justify-around divide-x-2 divide-[#c3c2c2] border">
+    <Card className="flex justify-around divide-x-2 divide-[#c3c2c2] border border-accent-500 bg-background-50">
       <div className="flex basis-1/3 flex-col items-center justify-center gap-2 pr-4">
         <div className="text-2xl font-bold">{ticket.carrier}</div>
-        <Button
-          className={`flex flex-col ${buttonVariants({ variant: "default", size: "default" })}`}
-        >
-          Купить
-          <span className="flex items-center">
-            за&nbsp;{ticket.price}
-            <RussianRuble className="h-4 w-4" />
-          </span>
-        </Button>
+        <BuyButton price={ticket.price} />
       </div>
       <div className="basis-2/3 space-y-3 pl-4">
         <div className="flex items-center justify-around gap-4">

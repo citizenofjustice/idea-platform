@@ -9,7 +9,7 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <>
-      <main className="flex justify-center p-4">{children}</main>
+      <main className="flex justify-center gap-8 p-4">{children}</main>
     </>
   );
 };
