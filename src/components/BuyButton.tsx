@@ -8,7 +8,7 @@ interface BuyButtonProps {
   price: number;
 }
 
-const renderIcon = (type: "RUB" | "USD" | "EUR") => {
+const renderIcon = (type: string) => {
   switch (type) {
     case "RUB":
       return <RussianRuble className="h-4 w-4" />;

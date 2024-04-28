@@ -126,3 +126,26 @@
     --accent-950: #f8ecf0;
   }
 }
+
+/* width */
+#currency_selector::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+#currency_selector::-webkit-scrollbar-track {
+  margin: 5px 0;
+  padding-right: 2px;
+  background: transparent;
+}
+
+/* Handle */
+#currency_selector::-webkit-scrollbar-thumb {
+  background: #e0b8c5;
+  border-radius: 3px;
+}
+
+/* Handle on hover */
+#currency_selector::-webkit-scrollbar-thumb:hover {
+  background: #c86a89;
+}

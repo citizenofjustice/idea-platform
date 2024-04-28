@@ -4,7 +4,7 @@ import CurrencySelect from "./CurrencySelect";
 
 const ControlPanel = () => {
   return (
-    <Card className="space-y-4">
+    <Card className="sticky top-4 h-fit w-[300px] space-y-4">
       <CurrencySelect />
       <StopsFilter />
     </Card>

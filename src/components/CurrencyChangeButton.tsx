@@ -12,7 +12,7 @@ const CurrencyChangeButton: React.FC<{ currency: Currency }> = observer(
     return (
       <div
         onClick={changeCurrency}
-        className={`${currency.type === currencys.currentCurrency.type ? "bg-primary-400 text-white" : ""} p-2 hover:cursor-pointer hover:bg-secondary-600 hover:text-white`}
+        className={`${currency.type === currencys.currentCurrency.type ? "bg-primary-400 text-white" : ""} rounded-md border border-accent-200 p-2 hover:cursor-pointer hover:bg-secondary-600 hover:text-white`}
       >
         {currency.type}
       </div>
