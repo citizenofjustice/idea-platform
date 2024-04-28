@@ -9,7 +9,7 @@ interface SelectorProps<T> {
 const Selector = observer(
   <T extends object>({ items, renderItem }: SelectorProps<T>) => {
     return (
-      <ul className="grid grid-cols-3 divide-x divide-accent-500 rounded-md border border-accent-500">
+      <ul className="grid grid-cols-3 divide-x divide-accent-500 overflow-hidden rounded-md border border-accent-500 ">
         {items.map((item) => (
           <li className="text-center" key={nanoid()}>
             {renderItem(item)}

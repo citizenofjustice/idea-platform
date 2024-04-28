@@ -2,6 +2,7 @@ import { RussianRuble, DollarSignIcon, EuroIcon } from "lucide-react";
 import { buttonVariants } from "../lib/utils";
 import Button from "./UI/Button";
 import { useStore } from "../store/root-store-context";
+import { observer } from "mobx-react-lite";
 
 interface BuyButtonProps {
   price: number;
@@ -18,7 +19,7 @@ const renderIcon = (type: "RUB" | "USD" | "EUR") => {
   }
 };
 
-const BuyButton: React.FC<BuyButtonProps> = ({ price }) => {
+const BuyButton: React.FC<BuyButtonProps> = observer(({ price }) => {
   const { currencys } = useStore();
 
   return (
@@ -26,13 +27,13 @@ const BuyButton: React.FC<BuyButtonProps> = ({ price }) => {
       className={`flex flex-col ${buttonVariants({ variant: "default", size: "default" })}`}
     >
       Купить
-      <span className="flex items-center gap-0.5">
+      <span className="flex w-24 items-center justify-center gap-0.5">
         за&nbsp;
         {Math.round((price / currencys.currentCurrency.priceToRub) * 100) / 100}
         {renderIcon(currencys.currentCurrency.type)}
       </span>
     </Button>
   );
-};
+});
 
 export default BuyButton;

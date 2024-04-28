@@ -1,5 +1,6 @@
 import { Currency } from "../types/Currency";
+import CurrencyChangeButton from "./CurrencyChangeButton";
 
 export const renderCurrency = (currency: Currency) => {
-  return <div className="p-2 hover:cursor-pointer">{currency.type}</div>;
+  return <CurrencyChangeButton currency={currency} />;
 };
