@@ -7,7 +7,13 @@ const TicketsList = observer(() => {
   const { tickets } = useStore();
   const { planeTickets } = tickets;
 
-  return <List listItems={planeTickets} renderItem={renderTickets} />;
+  return (
+    <List
+      listItems={planeTickets}
+      renderItem={renderTickets}
+      listEmptyMessage="Нет билетов подходящих под условия"
+    />
+  );
 });
 
 export default TicketsList;

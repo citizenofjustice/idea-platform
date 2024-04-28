@@ -4,10 +4,12 @@ import Selector from "./UI/Selector";
 
 const CurrencySelect = () => {
   return (
-    <div className="flex flex-col items-center justify-center gap-1">
+    <>
       <p className="font-medium uppercase">Валюта</p>
-      <Selector items={currencys} renderItem={renderCurrency} />
-    </div>
+      <div className="flex flex-row items-start justify-start gap-1">
+        <Selector items={currencys} renderItem={renderCurrency} />
+      </div>
+    </>
   );
 };
 

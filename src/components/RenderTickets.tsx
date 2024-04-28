@@ -1,6 +1,6 @@
 import Card from "./UI/Card";
 import { Ticket } from "../types/Ticket";
-import { stopsEnd } from "../lib/utils";
+import { formatTime, stopsEnd } from "../lib/utils";
 
 // icons
 import plane from "../assets/images/plane.svg";
@@ -20,7 +20,9 @@ export const renderTickets = (ticket: Ticket) => {
       </div>
       <div className="basis-2/3 space-y-3 pl-4">
         <div className="flex items-center justify-around gap-4">
-          <div className="text-2xl font-medium">{ticket.departure_time}</div>
+          <div className="text-2xl font-medium">
+            {formatTime(ticket.departure_time)}
+          </div>
           <div className="flex items-end">
             <span className="flex min-w-28 grow flex-col justify-between gap-1">
               <span className="text-center text-sm">
@@ -38,7 +40,9 @@ export const renderTickets = (ticket: Ticket) => {
               </span>
             </span>
           </div>
-          <div className="text-2xl font-medium">{ticket.arrival_time}</div>
+          <div className="text-2xl font-medium">
+            {formatTime(ticket.arrival_time)}
+          </div>
         </div>
         <div className="flex justify-between">
           <div>

@@ -55,3 +55,9 @@ export function stopsEnd(value: number) {
       return "пересадок";
   }
 }
+
+export function formatTime(timeString: string) {
+  const [hours, minutes] = timeString.split(":");
+  const fomattedHour = hours.length === 1 ? `0${hours}` : hours;
+  return `${fomattedHour}:${minutes}`;
+}

@@ -26,7 +26,7 @@ const Selector = observer(
           >
             {mainItems.map((item) => (
               <li
-                className="basis-1/3 overflow-hidden rounded-md bg-primary-50 text-center"
+                className="w-[50px] overflow-hidden rounded-md bg-primary-50 text-center"
                 key={nanoid()}
               >
                 {renderItem(item)}
@@ -35,7 +35,7 @@ const Selector = observer(
             {isOpen &&
               additionalItems.map((item) => (
                 <li
-                  className="basis-1/3 overflow-hidden rounded-md bg-primary-50 text-center"
+                  className="w-[50px] overflow-hidden rounded-md bg-primary-50 text-center"
                   key={nanoid()}
                 >
                   {renderItem(item)}
@@ -43,10 +43,12 @@ const Selector = observer(
               ))}
           </ul>
         </div>
-        <ChevronDown
-          onClick={() => setIsOpen((prevValue) => !prevValue)}
-          className={`h-10 w-10 transform p-2 text-accent-600 transition-all hover:cursor-pointer ${isOpen ? "rotate-180" : ""}`}
-        />
+        <div className="flex items-center">
+          <ChevronDown
+            onClick={() => setIsOpen((prevValue) => !prevValue)}
+            className={`mt-2 h-8 w-8 transform p-1 text-accent-600 transition-all hover:cursor-pointer ${isOpen ? "rotate-180" : ""}`}
+          />
+        </div>
       </>
     );
   },

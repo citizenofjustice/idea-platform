@@ -1,49 +1,49 @@
-import { action, makeAutoObservable } from "mobx";
+import { makeAutoObservable } from "mobx";
 import { Ticket } from "../types/Ticket";
 import { tickets } from "../data/tickets.json";
+import { PriceFilter } from "./filterStore";
+import { Currency } from "../types/Currency";
 
 const initialTickets: Ticket[] = tickets;
 
 class Tickets {
   planeTickets: Ticket[] = tickets;
-  stopsFilter: number[] = [];
 
   constructor() {
-    makeAutoObservable(this, { setStopsFilter: action });
+    makeAutoObservable(this);
   }
 
-  filterPlaneTickets = () => {
+  comparePrice = (
+    ticketPrice: number,
+    priceRange: PriceFilter,
+    currency: Currency,
+  ) => {
+    const from = priceRange.from ? priceRange.from : 0;
+    const to = priceRange.to ? priceRange.to : Infinity;
+    const start = currency.priceToRub * from;
+    const end = currency.priceToRub * to;
+    const isInRange = start < ticketPrice && ticketPrice < end;
+    return isInRange;
+  };
+
+  filterPlaneTickets = async (
+    stopValues: number[],
+    priceRange: PriceFilter,
+    currency: Currency,
+  ) => {
     try {
-      if (this.stopsFilter.length === 0) {
-        this.planeTickets = initialTickets;
+      if (stopValues.length === 0) {
+        this.planeTickets = [];
         return;
       }
-      const filteredTickets = initialTickets.filter((ticket) =>
-        this.stopsFilter.includes(ticket.stops),
+      const filteredTickets = initialTickets.filter(
+        (ticket) =>
+          stopValues.includes(ticket.stops) &&
+          this.comparePrice(ticket.price, priceRange, currency),
       );
       this.planeTickets = filteredTickets;
     } catch (error) {
       console.error("Could not filter ticket list: ", error);
-    }
-  };
-
-  setStopsFilter = (isChecked: boolean, option: number) => {
-    try {
-      if (isChecked) {
-        const addedFilter =
-          this.stopsFilter.length > 0
-            ? [...this.stopsFilter, option]
-            : [option];
-        this.stopsFilter = addedFilter;
-      } else {
-        const removedFilter = this.stopsFilter.filter(
-          (stop) => stop !== option,
-        );
-        this.stopsFilter = removedFilter;
-      }
-      this.filterPlaneTickets();
-    } catch (error) {
-      console.error("Could not update tickets filter: ", error);
     }
   };
 }
