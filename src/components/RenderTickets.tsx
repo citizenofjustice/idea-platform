@@ -5,6 +5,7 @@ import { stopsEnd } from "../lib/utils";
 // icons
 import plane from "../assets/images/plane.svg";
 import BuyButton from "./BuyButton";
+import AirlineImage from "./AirlineImage";
 
 /**
  * Components that renders ticket passed as argument
@@ -14,7 +15,7 @@ export const renderTickets = (ticket: Ticket) => {
   return (
     <Card className="flex justify-around divide-x-2 divide-[#c3c2c2] border border-accent-500 bg-background-50">
       <div className="flex basis-1/3 flex-col items-center justify-center gap-2 pr-4">
-        <div className="text-2xl font-bold">{ticket.carrier}</div>
+        <AirlineImage carrier={ticket.carrier} />
         <BuyButton price={ticket.price} />
       </div>
       <div className="basis-2/3 space-y-3 pl-4">
