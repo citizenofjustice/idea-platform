@@ -1,25 +1,13 @@
-import logoTK from "../assets/images/turkish-airlines-logo.svg";
-import logoBA from "../assets/images/british-airways-logo.svg";
-import logoS7 from "../assets/images/s7-airlines-logo.svg";
-import logoSU from "../assets/images/aeroflot-airlines-logo.svg";
+import { airlines } from "../data/airlines";
 
 interface AirlineImageProps {
   carrier: string;
 }
 
-interface Airline {
-  companyName: string;
-  logo: string;
-  carrierCode: string;
-}
-
-const airlines: Airline[] = [
-  { companyName: "Turkish Airlines", logo: logoTK, carrierCode: "TK" },
-  { companyName: "British Airways", logo: logoBA, carrierCode: "BA" },
-  { companyName: "S7 Airlines", logo: logoS7, carrierCode: "S7" },
-  { companyName: "Аэрофлот", logo: logoSU, carrierCode: "SU" },
-];
-
+/**
+ * Airline logo component
+ * @param carrier - airline carrier code for finding its logo
+ */
 const AirlineImage: React.FC<AirlineImageProps> = ({ carrier }) => {
   const airlineData = airlines.find(
     (airline) => airline.carrierCode === carrier,
@@ -34,6 +22,7 @@ const AirlineImage: React.FC<AirlineImageProps> = ({ carrier }) => {
           alt={airlineData.companyName}
         />
       ) : (
+        // if airline image is not exists display carrier code instead
         <div className="text-2xl font-bold">{carrier}</div>
       )}
     </div>

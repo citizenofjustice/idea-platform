@@ -1,14 +1,22 @@
+import { useRef } from "react";
 import { observer } from "mobx-react-lite";
+
+import Button from "./UI/Button";
 import { buttonVariants, cn } from "../lib/utils";
 import { useStore } from "../store/root-store-context";
-import Button from "./UI/Button";
-import { useRef } from "react";
 
+/**
+ * Price filter component
+ */
 const PriceFilter = observer(() => {
+  // accessing data from store
   const { filters, currencys, tickets } = useStore();
+
+  // creating refs for getting current inputs values
   const fromRef = useRef<HTMLInputElement>(null);
   const toRef = useRef<HTMLInputElement>(null);
 
+  // filter tickets based on the input values
   const handlePriceFiltering = async () => {
     const from = Number(fromRef.current?.value);
     const to = Number(toRef.current?.value);

@@ -1,7 +1,10 @@
-import { currencys } from "../store/currencyStore";
-import { renderCurrency } from "./RenderCurrency";
 import Selector from "./UI/Selector";
+import { renderCurrency } from "./RenderCurrency";
+import { currencys } from "../store/currencyStore";
 
+/**
+ * Currency select block
+ */
 const CurrencySelect = () => {
   return (
     <>

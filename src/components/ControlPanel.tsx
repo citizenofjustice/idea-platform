@@ -1,8 +1,11 @@
 import Card from "./UI/Card";
+import PriceFilter from "./PriceFilter";
 import StopsFilter from "./StopsFilter";
 import CurrencySelect from "./CurrencySelect";
-import PriceFilter from "./PriceFilter";
 
+/**
+ * Component for rendering sticky control panel for filtering and currency change
+ */
 const ControlPanel = () => {
   return (
     <Card className="sticky top-4 h-fit w-[300px] space-y-4">

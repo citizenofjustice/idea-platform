@@ -1,8 +1,13 @@
 import { observer } from "mobx-react-lite";
+
 import LabeledCheckbox from "./UI/LabeledCheckbox";
 import { useStore } from "../store/root-store-context";
 
+/**
+ * Stops filter component
+ */
 const StopsFilter = observer(() => {
+  // accessing the filter data from store
   const { filters } = useStore();
   const { stopsFilter } = filters;
 

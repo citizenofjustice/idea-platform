@@ -3,12 +3,12 @@ import { Ticket } from "../types/Ticket";
 import { formatTime, stopsEnd } from "../lib/utils";
 
 // icons
-import plane from "../assets/images/plane.svg";
 import BuyButton from "./BuyButton";
 import AirlineImage from "./AirlineImage";
+import plane from "../assets/images/plane.svg";
 
 /**
- * Components that renders ticket passed as argument
+ * Function that renders ticket passed as argument
  * @param ticket - ticket data for rendering
  */
 export const renderTickets = (ticket: Ticket) => {

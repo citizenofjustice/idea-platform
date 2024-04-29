@@ -1,6 +1,6 @@
+import FilterStore from "./filterStore";
 import TicketsStore from "./ticketsStore";
 import CurrencyStore from "./currencyStore";
-import FilterStore from "./filterStore";
 
 // root store class for uniting all stores for convenience
 class RootStore {

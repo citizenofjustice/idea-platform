@@ -1,4 +1,5 @@
 import { nanoid } from "nanoid";
+
 import Card from "./Card";
 
 interface ListProps<T> {
@@ -11,6 +12,7 @@ interface ListProps<T> {
  * Reusable list component with generic types
  * @param listItems - array of list elements
  * @param renderItem - function for rendering list element
+ * @param listEmptyMessage - message that appears if list is empty
  */
 const List = <T extends object>({
   listItems,

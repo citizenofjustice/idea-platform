@@ -1,52 +1,12 @@
 import { makeAutoObservable } from "mobx";
-import { nanoid } from "nanoid";
 
-interface StopsFilterOption {
-  id: string;
-  labelText: string;
-  value: string | number;
-  isActive: boolean;
-}
+import { PriceFilter } from "../types/PriceFilter";
+import { filterOptions } from "../data/filterOptions";
 
-export interface PriceFilter {
-  from: number | undefined;
-  to: number | undefined;
-}
-
-const filterOptions: StopsFilterOption[] = [
-  {
-    id: nanoid(),
-    labelText: "все",
-    value: "all",
-    isActive: true,
-  },
-  {
-    id: nanoid(),
-    labelText: "без пересадок",
-    value: 0,
-    isActive: true,
-  },
-  {
-    id: nanoid(),
-    labelText: "1 пересадка",
-    value: 1,
-    isActive: true,
-  },
-  {
-    id: nanoid(),
-    labelText: "2 пересадки",
-    value: 2,
-    isActive: true,
-  },
-  {
-    id: nanoid(),
-    labelText: "3 пересадки",
-    value: 3,
-    isActive: true,
-  },
-];
-
-class Tickets {
+/**
+ * Filters class form managing tickets state
+ */
+class Filters {
   stopsFilter = filterOptions;
   priceFilter: PriceFilter = { from: undefined, to: undefined };
 
@@ -54,51 +14,86 @@ class Tickets {
     makeAutoObservable(this, {});
   }
 
+  /**
+   * method for getting active stops filter values
+   * @returns number[] array of stops values
+   */
   calcStopValues = async () => {
-    const values: number[] = [];
-    this.stopsFilter.map((filter) => {
-      if (filter.isActive === true && typeof filter.value === "number")
-        values.push(filter.value);
-    });
-    return values;
+    try {
+      const values: number[] = [];
+      this.stopsFilter.map((filter) => {
+        if (filter.isActive === true && typeof filter.value === "number")
+          values.push(filter.value);
+      });
+      return values;
+    } catch (error) {
+      console.error("Could not get stops filter values: ", error);
+    }
   };
 
+  /**
+   * method for managing checkboxes and getting active filters
+   * @param filterId - id for finding needed filter
+   * @param value - value for checking if it is "all" checkbox is toggled
+   * @param checked - checked state of checkbox
+   * @returns updated stops filter values
+   */
   toggleStopsFilter = async (
     filterId: string,
     value: string | number,
     checked: boolean,
   ) => {
-    if (value === "all") {
-      const updatedStopsFilter = this.stopsFilter.map((filter) => {
-        return { ...filter, isActive: checked };
-      });
-      this.stopsFilter = updatedStopsFilter;
-    } else {
+    try {
+      if (value === "all") {
+        // set all checkboxes states equal to "all" checked state
+        const updatedStopsFilter = this.stopsFilter.map((filter) => {
+          return { ...filter, isActive: checked };
+        });
+        this.stopsFilter = updatedStopsFilter;
+      } else {
+        // toggle selected checkbox state
+        const updatedStopsFilter = this.stopsFilter.map((filter) =>
+          filter.id === filterId
+            ? { ...filter, isActive: !filter.isActive }
+            : filter,
+        );
+        this.stopsFilter = updatedStopsFilter;
+      }
+      const values = await this.calcStopValues();
+      return values;
+    } catch (error) {
+      console.error("Checkbox toggle has failed: ", error);
+    }
+  };
+
+  /**
+   * method for setting only one checkbox filter as active
+   * @param filterId - id for finding needed filter
+   * @returns updated stops filter values
+   */
+  setOneStopsFilter = async (filterId: string) => {
+    try {
       const updatedStopsFilter = this.stopsFilter.map((filter) =>
         filter.id === filterId
-          ? { ...filter, isActive: !filter.isActive }
-          : filter,
+          ? { ...filter, isActive: true }
+          : { ...filter, isActive: false },
       );
       this.stopsFilter = updatedStopsFilter;
+      const values = await this.calcStopValues();
+      return values;
+    } catch (error) {
+      console.error("Could not set selected filter as active: ", error);
     }
-    const values = await this.calcStopValues();
-    return values;
   };
 
-  setOneStopsFilter = async (filterId: string) => {
-    const updatedStopsFilter = this.stopsFilter.map((filter) =>
-      filter.id === filterId
-        ? { ...filter, isActive: true }
-        : { ...filter, isActive: false },
-    );
-    this.stopsFilter = updatedStopsFilter;
-    const values = await this.calcStopValues();
-    return values;
-  };
-
+  /**
+   * method from updating price range filter
+   * @param from - price range start
+   * @param to - price range end
+   */
   setPriceFilter = (from: number | undefined, to: number | undefined) => {
     this.priceFilter = { from, to };
   };
 }
 
-export default new Tickets();
+export default new Filters();

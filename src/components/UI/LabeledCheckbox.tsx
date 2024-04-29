@@ -1,7 +1,8 @@
 import { observer } from "mobx-react-lite";
-import { useStore } from "../../store/root-store-context";
+
 import Button from "./Button";
 import { buttonVariants, cn } from "../../lib/utils";
+import { useStore } from "../../store/root-store-context";
 
 interface LabeledCheckboxProps {
   id: string;
@@ -10,18 +11,31 @@ interface LabeledCheckboxProps {
   value: string | number;
 }
 
+/**
+ * Copmonent for rendering checkbox fields for ticket filtering
+ * @param id - input field id for getting filter values from store
+ * @param isChecked - checkbox input checked state
+ * @param labelText - checkbox input text description
+ * @param value - checkbox input field value
+ */
 const LabeledCheckbox: React.FC<LabeledCheckboxProps> = observer(
   ({ id, isChecked, labelText, value }) => {
+    // accessing data from store
     const { filters, tickets, currencys } = useStore();
-    const { toggleStopsFilter, setOneStopsFilter, priceFilter } = filters;
     const { filterPlaneTickets } = tickets;
+    const { toggleStopsFilter, setOneStopsFilter, priceFilter } = filters;
 
+    /**
+     * Function that that handles checked state change and filters tickets afterwards
+     * @param event - checkbox change event
+     */
     const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
       const { checked } = event.target;
       const values = await toggleStopsFilter(id, value, checked);
       filterPlaneTickets(values, priceFilter, currencys.currentCurrency);
     };
 
+    // Function that checks only one filter option and uptates tickets list
     const handleOneFilterCondition = async () => {
       const values = await setOneStopsFilter(id);
       filterPlaneTickets(values, priceFilter, currencys.currentCurrency);
@@ -42,7 +56,8 @@ const LabeledCheckbox: React.FC<LabeledCheckboxProps> = observer(
         {value !== "all" && (
           <Button
             type="button"
-            className={`${cn(buttonVariants({ variant: "outline", size: "small" }))} hidden border-none text-xs font-medium uppercase text-white transition-colors hover:text-black group-hover:block`}
+            className={`${cn(buttonVariants({ variant: "outline", size: "small" }))} 
+              hidden border-none text-xs font-medium uppercase text-white transition-colors hover:text-black group-hover:block`}
             onClick={handleOneFilterCondition}
           >
             Только
