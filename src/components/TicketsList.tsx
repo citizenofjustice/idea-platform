@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 
 import List from "./UI/List";
-import { renderTickets } from "./RenderTickets";
+import { renderTickets } from "./renderTickets";
 import { useStore } from "../store/root-store-context";
 
 /**

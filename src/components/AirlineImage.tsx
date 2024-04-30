@@ -14,7 +14,7 @@ const AirlineImage: React.FC<AirlineImageProps> = ({ carrier }) => {
   );
 
   return (
-    <div className="max-w-28 py-4">
+    <div className="vsm:py-4 min-w-10 max-w-36">
       {airlineData ? (
         <img
           className="w-full object-fill"

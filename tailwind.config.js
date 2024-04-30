@@ -3,6 +3,13 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      screens: {
+        vvsm: "375px",
+        vsm: "520px",
+      },
+      fontFamily: {
+        inter: ['"Inter"'],
+      },
       colors: {
         text: {
           50: "var(--text-50)",

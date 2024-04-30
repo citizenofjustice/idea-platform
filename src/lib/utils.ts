@@ -7,7 +7,7 @@ import { twMerge } from "tailwind-merge";
  * Function for creating different button variants
  */
 export const buttonVariants = cva(
-  "active:scale-95 transition duration-150 ease-in-out inline-flex items-center justify-center rounded-md transition-colors disabled:pointer-events-none",
+  "active:scale-95 transition duration-150 ease-in-out inline-flex items-center justify-center rounded-md transition-colors disabled:pointer-events-none text-sm vsm:text-base",
   {
     variants: {
       variant: {

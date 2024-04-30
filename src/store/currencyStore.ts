@@ -17,49 +17,59 @@ if (storedRates) currencyRates = JSON.parse(storedRates);
  * @returns rates array of Currency objects
  */
 const getCurrencyRates = (currencysData: CurrencyApi) => {
-  const rates = [];
-  // iterate through rates object and push values to the rates array
-  for (const [key, value] of Object.entries(currencysData.rates)) {
-    const rate: Currency = { type: key, priceToRub: 1 / Number(value) };
-    // if type is USD or EUR add it to the start of array
-    if (rate.type === "USD" || rate.type === "EUR") {
-      rates.unshift(rate);
-      continue;
+  try {
+    const rates = [];
+    // iterate through rates object and push values to the rates array
+    for (const [key, value] of Object.entries(currencysData.rates)) {
+      const rate: Currency = { type: key, priceToRub: 1 / Number(value) };
+      // if type is USD or EUR add it to the start of array
+      if (rate.type === "USD" || rate.type === "EUR") {
+        rates.unshift(rate);
+        continue;
+      }
+      rates.push(rate);
     }
-    rates.push(rate);
+    return rates;
+  } catch (error) {
+    console.error("Failed to format currency data: ", error);
   }
-  return rates;
 };
 
 // function for populating currencys array with data
 const loadCurrencys = async () => {
-  // getting current date
-  const today = new Date().toLocaleDateString();
-  // getting date of currency data from localStorage
-  const lastCurrencyLoadDay = new Date(
-    currencyRates.timestamp * 1000,
-  ).toLocaleDateString();
+  try {
+    // getting current date
+    const today = new Date().toLocaleDateString();
+    // getting date of currency data from localStorage
+    const lastCurrencyLoadDay = new Date(
+      currencyRates.timestamp * 1000,
+    ).toLocaleDateString();
 
-  // if data is existed in localStorage and if date is the same as the current one
-  if (currencyRates && today === lastCurrencyLoadDay) {
-    const rates = getCurrencyRates(currencyRates);
-    // update the currencys array
-    currencys = [...currencys, ...rates];
-    // stop function execution
-    return;
-  }
+    // if data is existed in localStorage and if date is the same as the current one
+    if (currencyRates && today === lastCurrencyLoadDay) {
+      const rates = getCurrencyRates(currencyRates);
+      // update the currencys array
+      if (rates) currencys = [...currencys, ...rates];
+      // stop function execution
+      return;
+    }
 
-  // fetch currency data from third party API
-  const currencysLatest = await fetch("https://www.cbr-xml-daily.ru/latest.js");
+    // fetch currency data from third party API
+    const currencysLatest = await fetch(
+      "https://www.cbr-xml-daily.ru/latest.js",
+    );
 
-  // if request was successful
-  if (currencysLatest.ok) {
-    // parsing data to json
-    const currencysData: CurrencyApi = await currencysLatest.json();
-    // saving data to localStorage
-    localStorage.setItem("currencyRates", JSON.stringify(currencysData));
-    const rates = getCurrencyRates(currencysData);
-    currencys = [...currencys, ...rates];
+    // if request was successful
+    if (currencysLatest.ok) {
+      // parsing data to json
+      const currencysData: CurrencyApi = await currencysLatest.json();
+      // saving data to localStorage
+      localStorage.setItem("currencyRates", JSON.stringify(currencysData));
+      const rates = getCurrencyRates(currencysData);
+      if (rates) currencys = [...currencys, ...rates];
+    }
+  } catch (error) {
+    console.log("Currency data fetching has failed: ", error);
   }
 };
 
@@ -77,8 +87,14 @@ class Currencys {
   }
 
   setCurrentCurrency = (type: string) => {
-    const foundCurrency = currencys.find((currency) => currency.type === type);
-    if (foundCurrency) this.currentCurrency = foundCurrency;
+    try {
+      const foundCurrency = currencys.find(
+        (currency) => currency.type === type,
+      );
+      if (foundCurrency) this.currentCurrency = foundCurrency;
+    } catch (error) {
+      console.log("Failed to select new currency: ", error);
+    }
   };
 }
 

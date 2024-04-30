@@ -149,3 +149,19 @@
 #currency_selector::-webkit-scrollbar-thumb:hover {
   background: #c86a89;
 }
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+body {
+  background-color: #efdce2;
+}
+#root {
+  position: relative;
+}
+#dialog-background {
+  min-height: 100%;
+}

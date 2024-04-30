@@ -27,10 +27,10 @@ const Selector = observer(
       <>
         <div
           id="currency_selector" // id for styling dropdown scrollbar in index.css
-          className={`flex transform scroll-mx-4 flex-col items-center rounded-md border border-accent-500 transition-all ${isOpen ? "max-h-60 overflow-y-auto" : "max-h-14 overflow-hidden"}`}
+          className={`flex transform scroll-mx-4 flex-col items-center transition-all ${isOpen ? "max-h-60 overflow-y-auto shadow-[rgba(0,0,15,0.1)_0px_1px_0px_0px]" : "max-h-14 overflow-hidden"} w-full`}
         >
           <ul
-            className={`grid grid-cols-3 gap-x-1 p-1 ${isOpen ? "h-full gap-y-1" : ""}`}
+            className={`grid grid-cols-3 gap-x-1 p-2 ${isOpen ? "h-full gap-y-1" : ""}`}
           >
             {mainItems.map((item) => (
               <li
@@ -54,6 +54,7 @@ const Selector = observer(
         <ChevronAnimated
           isActive={isOpen}
           rotate={() => setIsOpen((prevValue) => !prevValue)}
+          direction="down-up"
         />
       </>
     );

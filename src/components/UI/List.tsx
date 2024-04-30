@@ -20,7 +20,7 @@ const List = <T extends object>({
   listEmptyMessage,
 }: ListProps<T>) => {
   return (
-    <ul className="space-y-3">
+    <ul className="w-full max-w-xl space-y-3">
       {listItems.length > 0 ? (
         <>
           {listItems.map((listItem) => (

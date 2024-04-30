@@ -32,17 +32,19 @@ const LabeledCheckbox: React.FC<LabeledCheckboxProps> = observer(
     const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
       const { checked } = event.target;
       const values = await toggleStopsFilter(id, value, checked);
-      filterPlaneTickets(values, priceFilter, currencys.currentCurrency);
+      values &&
+        filterPlaneTickets(values, priceFilter, currencys.currentCurrency);
     };
 
     // Function that checks only one filter option and uptates tickets list
     const handleOneFilterCondition = async () => {
       const values = await setOneStopsFilter(id);
-      filterPlaneTickets(values, priceFilter, currencys.currentCurrency);
+      values &&
+        filterPlaneTickets(values, priceFilter, currencys.currentCurrency);
     };
 
     return (
-      <span className="group flex items-center justify-between px-2 py-1 hover:bg-secondary-300">
+      <span className="group flex items-center justify-between rounded-md px-2 py-1 hover:bg-secondary-300">
         <label className="flex items-center gap-2">
           <input
             type="checkbox"
@@ -57,7 +59,7 @@ const LabeledCheckbox: React.FC<LabeledCheckboxProps> = observer(
           <Button
             type="button"
             className={`${cn(buttonVariants({ variant: "outline", size: "small" }))} 
-              hidden border-none text-xs font-medium uppercase text-white transition-colors hover:text-black group-hover:block`}
+              vsm:text-xs hidden border-none text-xs font-medium uppercase text-white transition-colors hover:text-black group-hover:block`}
             onClick={handleOneFilterCondition}
           >
             Только

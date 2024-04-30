@@ -13,9 +13,7 @@ const StopsFilter = observer(() => {
 
   return (
     <form className="flex w-full flex-col space-y-2">
-      <p className="text-start text-sm font-medium uppercase">
-        Количество пересадок
-      </p>
+      <p className="text-start font-medium uppercase">Количество пересадок</p>
       <div>
         {stopsFilter.map((filter) => (
           <LabeledCheckbox
