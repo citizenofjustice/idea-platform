@@ -74,7 +74,7 @@ const loadCurrencys = async () => {
 };
 
 // Calling the function for populating currencys array
-await loadCurrencys();
+loadCurrencys();
 
 /**
  * Class for managing current currency
