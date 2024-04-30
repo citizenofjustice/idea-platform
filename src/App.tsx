@@ -25,8 +25,8 @@ function App() {
           <div
             className={
               isDesktop
-                ? `fixed z-50 mt-10 flex w-full translate-x-[-100vw] transform justify-center px-4 transition-transform duration-300 ${
-                    isContolPanelActive ? "translate-x-[0]" : ""
+                ? `fixed z-50 mt-10 flex w-full translate-x-[-100vw] transform justify-center px-4 opacity-0 transition-all duration-300 ${
+                    isContolPanelActive ? "translate-x-[0] opacity-100" : ""
                   }`
                 : "flex-start sticky top-10 flex"
             }
